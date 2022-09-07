@@ -3,7 +3,6 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
     "interfaces": "libs/interfaces",
     "vacant-at-brown": "apps/vacant-at-brown",
     "vacant-at-brown-e2e": "apps/vacant-at-brown-e2e"

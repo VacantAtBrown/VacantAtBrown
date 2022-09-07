@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vacant-at-brown/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@vacant-at-brown/interfaces": ["libs/interfaces/src/index.ts"]
     }
   },
