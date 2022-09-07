@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Message } from '@vacant-at-brown/api-interfaces';
+
+export interface Message {
+  message: string;
+}
 
 export const App = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
