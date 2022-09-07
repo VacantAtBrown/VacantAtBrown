@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Message } from '@vacant-at-brown/api-interfaces';
+import MapView from '../components/Map';
 
 export const App = () => {
   const [m, setMessage] = useState<Message>({ message: '' });
@@ -21,6 +22,7 @@ export const App = () => {
         />
       </div>
       <div>{m.message}</div>
+      <MapView />
     </>
   );
 };
