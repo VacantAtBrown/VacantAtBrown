@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import MapView from '../components/Map';
 
-export interface Message {
-  message: string;
-}
-
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
-
-  useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
-  }, []);
+  var t = 9;
 
   return (
     <>
@@ -25,7 +14,6 @@ export const App = () => {
           alt="Nx - Smart, Fast and Extensible Build System"
         />
       </div>
-      <div>{m.message}</div>
       <MapView />
     </>
   );
