@@ -4,6 +4,8 @@
   "projects": {
     "api": "apps/api",
     "interfaces": "libs/interfaces",
+    "scraper": "apps/scraper",
+    "scraping": "libs/scraping",
     "vacant-at-brown": "apps/vacant-at-brown",
     "vacant-at-brown-e2e": "apps/vacant-at-brown-e2e"
   }

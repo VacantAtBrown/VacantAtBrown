@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vacant-at-brown/interfaces": ["libs/interfaces/src/index.ts"]
+      "@vacant-at-brown/interfaces": ["libs/interfaces/src/index.ts"],
+      "@vacant-at-brown/scraping": ["libs/scraping/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
