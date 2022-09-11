@@ -20,6 +20,7 @@ export interface RoomAllocation {
   endTime: number;
   day: DayOfWeek;
   type: RoomAllocationType;
+  date: Date;
   repeats?: {
     startDate: Date;
     endDate: Date;

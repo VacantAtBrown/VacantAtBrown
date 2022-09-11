@@ -24,7 +24,7 @@ const Building = (props: Building) => {
     <Polygon
       positions={positions}
       eventHandlers={handleClick}
-      pathOptions={{ color: 'red' }}
+      pathOptions={{ opacity: 0, fillOpacity: 0 }}
     />
   );
 };
