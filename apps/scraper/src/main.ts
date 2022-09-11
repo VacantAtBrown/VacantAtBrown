@@ -1,15 +1,22 @@
 import { Semester } from '@vacant-at-brown/interfaces';
-import {
-  getCoursesForSemester,
-  getDetailedCourseData,
-} from '@vacant-at-brown/scraping';
+import { scrapeAllData } from '@vacant-at-brown/scraping';
+import { getLogger } from 'log4js';
+import { writeFile } from 'fs';
+const logger = getLogger('Application');
 
 (async () => {
-  const semester: Semester = 'fall';
-  const year = 2022;
-  const courses = await getCoursesForSemester(semester, year);
-  const detailedCourses = await getDetailedCourseData(semester, year, courses);
-  console.log(detailedCourses);
+  logger.info('Starting to scrape data...');
+  const allocations = await scrapeAllData();
+  logger.info('Finished scraping data.');
+  logger.info('Saving data to client...');
+  writeFile(
+    'apps/vacant-at-brown/src/data/allocations.json',
+    JSON.stringify(allocations),
+    'utf8',
+    () => {
+      logger.info('Finished saving data to client.');
+    }
+  );
 })().then(async (r) => {});
 
 console.log('Hello World!');

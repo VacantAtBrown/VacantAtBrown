@@ -8,7 +8,7 @@ export enum DayOfWeek {
   Friday = 5,
 }
 
-export type Building = 'CIT' | 'Barus & Holley';
+export type Building = 'CIT' | 'Barus & Holley' | 'Unknown';
 
 export interface Location {
   building: Building;
@@ -16,14 +16,13 @@ export interface Location {
 }
 
 export interface RoomAllocation {
+  name: string;
   startTime: number;
   endTime: number;
   day: DayOfWeek;
   type: RoomAllocationType;
-  date: Date;
-  repeats?: {
-    startDate: Date;
-    endDate: Date;
-  };
+  startDate: Date;
+  endDate: Date;
+  repeats: boolean;
   location: Location;
 }

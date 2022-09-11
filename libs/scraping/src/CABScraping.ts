@@ -3,7 +3,9 @@ import {
   CABCoursesResult,
   DetailedCABCourse,
   RawDetailedCABCourse,
+  RoomAllocation,
   Semester,
+  parseLocation,
 } from '@vacant-at-brown/interfaces';
 import axios, { AxiosResponse } from 'axios';
 
@@ -64,7 +66,7 @@ export async function getDetailedCourseData(
 
   async function queryCourseData(
     course: CABCourse
-  ): Promise<DetailedCABCourse> {
+  ): Promise<DetailedCABCourse | undefined> {
     const requestData = {
       srcdb,
       key: `crn:${course.crn}`,
@@ -76,9 +78,11 @@ export async function getDetailedCourseData(
     );
 
     const detailResult = result.data;
-    const location = detailResult.meeting_html
-      .match('<a.*>([ws-]+)</a>')
-      ?.find((t) => true);
+    const locationMatch =
+      detailResult.meeting_html.match(/<a.*>([\w\s-]+)<\/a>/);
+    if (locationMatch === null) return;
+
+    const location = locationMatch[1];
     const instructor = detailResult.instructordetail_html
       .match('<h4><a.*>([ws-]+)</a></h4>')
       ?.find((t) => true);
@@ -88,17 +92,42 @@ export async function getDetailedCourseData(
       instructor: instructor,
     };
   }
-
-  return await Promise.all(courses.map(queryCourseData));
+  const details = await Promise.all(courses.map(queryCourseData));
+  return details.filter((i) => i !== undefined) as DetailedCABCourse[];
 }
 
-export function convertCoursesToRoomAllocations(courses: DetailedCABCourse[]) {
-  return courses
-    .map((course) => {
-      // Ignore if no location was found
-      if (!course.location) return;
+export function convertCoursesToRoomAllocations(
+  courses: DetailedCABCourse[]
+): RoomAllocation[] {
+  return courses.flatMap((course) => {
+    // Ignore if no location was found
+    const allocations: RoomAllocation[] = course.meetingTimes.map((time) => ({
+      name: course.title,
+      repeats: true,
+      day: time.meet_day,
+      startTime: time.start_time,
+      endTime: time.end_time,
+      startDate: course.start_date,
+      endDate: course.end_date,
+      location: parseLocation(course.location!),
+      type: 'Course',
+    }));
 
-      console.log('location', course.location);
-    })
-    .filter((c) => c !== undefined);
+    return allocations;
+  });
+}
+
+/**
+ *
+ * @param semester The semester that we want to scrape
+ * @param year The year that we want to scrape
+ * @returns An array of room allocations representing the found slots in
+ */
+export async function scrapeCABData(
+  semester: Semester,
+  year: number
+): Promise<RoomAllocation[]> {
+  const courses = await getCoursesForSemester(semester, year);
+  const detailedCourses = await getDetailedCourseData(semester, year, courses);
+  return convertCoursesToRoomAllocations(detailedCourses);
 }
