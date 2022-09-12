@@ -21,6 +21,6 @@ export interface RoomAllocation {
   startDate: Date;
   endDate: Date;
   repeats: boolean;
-  building: Building; // CIT
-  room: string;
+  building: Building; // Building name, ex. CIT
+  room: string; // Room and building name, ex. CIT 168
 }
