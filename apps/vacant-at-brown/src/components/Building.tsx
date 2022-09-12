@@ -1,6 +1,7 @@
 import { LatLng } from 'leaflet';
 import { useMemo } from 'react';
 import { Polygon } from 'react-leaflet';
+import { useSidePanel } from '../state/useSidePanel';
 
 interface Building {
   positions: LatLng[];
@@ -10,21 +11,19 @@ interface Building {
 
 const Building = (props: Building) => {
   const { positions, name } = props;
+  const toggleExpanded = useSidePanel((state) => state.toggleExpanded);
 
-  const handleClick = useMemo(
-    () => ({
-      click() {
-        console.log(name);
-      },
-    }),
-    [name]
-  );
+  const handleClick = {
+    click() {
+      toggleExpanded();
+    },
+  };
 
   return (
     <Polygon
       positions={positions}
       eventHandlers={handleClick}
-      pathOptions={{ opacity: 0, fillOpacity: 0 }}
+      pathOptions={{ opacity: 0.1, fillOpacity: 0.1 }}
     />
   );
 };

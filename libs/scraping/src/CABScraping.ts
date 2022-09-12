@@ -5,7 +5,7 @@ import {
   RawDetailedCABCourse,
   RoomAllocation,
   Semester,
-  parseLocation,
+  parseBuilding,
 } from '@vacant-at-brown/interfaces';
 import axios, { AxiosResponse } from 'axios';
 
@@ -109,7 +109,8 @@ export function convertCoursesToRoomAllocations(
       endTime: time.end_time,
       startDate: course.start_date,
       endDate: course.end_date,
-      location: parseLocation(course.location!),
+      building: parseBuilding(course.location!),
+      room: course.location!,
       type: 'Course',
     }));
 
