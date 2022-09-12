@@ -1,19 +1,16 @@
 export type RoomAllocationType = 'Course' | 'Other';
 
 export enum DayOfWeek {
-  Monday = 1,
-  Tuesday = 2,
-  Wednesday = 3,
-  Thursday = 4,
-  Friday = 5,
+  Sunday,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
 }
 
 export type Building = 'CIT' | 'Barus & Holley' | 'Unknown';
-
-export interface Location {
-  building: Building;
-  room: string;
-}
 
 export interface RoomAllocation {
   name: string;
@@ -24,5 +21,6 @@ export interface RoomAllocation {
   startDate: Date;
   endDate: Date;
   repeats: boolean;
-  location: Location;
+  building: Building; // CIT
+  room: string;
 }
