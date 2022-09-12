@@ -1,3 +1,5 @@
+import { Building } from './Building';
+
 export type RoomAllocationType = 'Course' | 'Other';
 
 export enum DayOfWeek {
@@ -9,8 +11,6 @@ export enum DayOfWeek {
   Friday,
   Saturday,
 }
-
-export type Building = 'CIT' | 'Barus & Holley' | 'Unknown';
 
 export interface RoomAllocation {
   name: string;
